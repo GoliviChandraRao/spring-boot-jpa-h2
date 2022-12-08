@@ -30,14 +30,14 @@ public class StudentController {
 	StudentRepository studentRepository;
 
 	@GetMapping("/students")
-	public ResponseEntity<List<Student>> getAllStudents(@RequestParam(required = false) String title) {
+	public ResponseEntity<List<Student>> getAllStudents(@RequestParam(required = false) String name) {
 		try {
 			List<Student> students = new ArrayList<Student>();
 
-			if (title == null)
+			if (name == null)
 				studentRepository.findAll().forEach(students::add);
 			else
-				studentRepository.findByTitleContaining(title).forEach(students::add);
+				studentRepository.findByNameContaining(name).forEach(students::add);
 
 			if (students.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -64,7 +64,7 @@ public class StudentController {
 	public ResponseEntity<Student> createStudent(@RequestBody Student student) {
 		try {
 			Student _student = studentRepository
-					.save(new Student(student.getTitle(), student.getDescription(), false));
+					.save(new Student(student.getName(), student.getPhone()));
 			return new ResponseEntity<>(_student, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -77,9 +77,8 @@ public class StudentController {
 
 		if (studentData.isPresent()) {
 			Student _student = studentData.get();
-			_student.setTitle(student.getTitle());
-			_student.setDescription(student.getDescription());
-			_student.setPublished(student.isPublished());
+			_student.setName(student.getName());
+			_student.setPhone(student.getPhone());
 			return new ResponseEntity<>(studentRepository.save(_student), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -105,20 +104,6 @@ public class StudentController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-	}
-
-	@GetMapping("/students/published")
-	public ResponseEntity<List<Student>> findByPublished() {
-		try {
-			List<Student> students = studentRepository.findByPublished(true);
-
-			if (students.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-			return new ResponseEntity<>(students, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
 	}
 
 }

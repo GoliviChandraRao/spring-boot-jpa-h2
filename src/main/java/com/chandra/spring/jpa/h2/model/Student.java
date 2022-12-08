@@ -10,56 +10,44 @@ public class Student {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@Column(name = "title")
-	private String title;
+	@Column(name = "name")
+	private String name;
 
-	@Column(name = "description")
-	private String description;
-
-	@Column(name = "published")
-	private boolean published;
+	@Column(name = "phone")
+	private String phone;
 
 	public Student() {
 
 	}
 
-	public Student(String title, String description, boolean published) {
-		this.title = title;
-		this.description = description;
-		this.published = published;
+	public Student(String name, String phone) {
+		this.name = name;
+		this.phone = phone;
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public boolean isPublished() {
-		return published;
-	}
-
-	public void setPublished(boolean isPublished) {
-		this.published = isPublished;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", title=" + title + ", desc=" + description + ", published=" + published + "]";
+		return "Student [id=" + id + ", name=" + name + ", desc=" + phone + "]";
 	}
 
 }
