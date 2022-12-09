@@ -1,4 +1,4 @@
-# Assignment: Spring book CRUD operations including h2(in-memory database) stored procedures 
+# Assignment: Spring book CRUD operations including h2(in-memory database)
 
 ## Run Spring Boot application
 
